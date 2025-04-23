@@ -8,11 +8,11 @@ def subscriber():
     channel = connection.channel()
 
     # Create a fanout exchange and a new random queue
-    channel.exchange_declare(exchange='pubSub4', exchange_type='fanout')
+    channel.exchange_declare(exchange='logs', exchange_type='fanout')
     result = channel.queue_declare(queue='', exclusive=True)
     queue_name = result.method.queue
 
-    channel.queue_bind(exchange='pubSub4', queue=queue_name)
+    channel.queue_bind(exchange='logs', queue=queue_name)
 
     def callback(ch, method, properties, body):
         try:
