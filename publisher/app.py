@@ -8,7 +8,7 @@ def publisher():
     channel = connection.channel()
 
     # Create a fanout exchange (broadcast to all queues)
-    channel.exchange_declare(exchange='pubSub4', exchange_type='fanout')
+    channel.exchange_declare(exchange='logs', exchange_type='fanout')
 
     index = 0
     while True:
@@ -18,7 +18,7 @@ def publisher():
             time=datetime.now().isoformat()
         )
         message = msg.to_json()
-        channel.basic_publish(exchange='pubSub4', routing_key='', body=message)
+        channel.basic_publish(exchange='logs', routing_key='', body=message)
         print(f"Publisher sent: {message}")
         index += 1
         time.sleep(1)
